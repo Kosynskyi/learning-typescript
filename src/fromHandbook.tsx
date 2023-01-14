@@ -76,4 +76,56 @@
 // printName({ first: "Alice", last: "Alisson" });
 // ====================================================================================
 
+// якщо ми будемо робити якісь дії з ключем об"єкта, який ми вказали як необов"язковий, то нам потрібно зробити перевірку на undefined, приблизно так як це показано в прикладі нижче (одним із двох варіантів)
+// function printName(obj: { first: string; last?: string }) {
+//   // Error - might crash if 'obj.last' wasn't provided!
+//   // console.log(obj.last.toUpperCase());
+//   // Object is possibly 'undefined'.
+//   if (obj.last !== undefined) {
+//     // OK
+//     console.log(obj.last.toUpperCase());
+//   }
+
+//   // A safe alternative using modern JavaScript syntax:
+//   console.log(obj.last?.toUpperCase());
+// }
+
+// printName({ first: "Alice", last: "Alisson" });
+// ====================================================================================
+/**
+ * Union type
+ * Union type - це тип, який утворюється з двох і більше різних типів, які можуть відповідати якомусь значенню
+ */
+// Приклад:
+// function printId(id: number | string) {
+//   console.log("Your ID is: " + id);
+// }
+
+// printId(101); // підходить, бо аргумент відходить під один із вищевказаних типів number | string
+// printId("202"); // підходить, бо аргумент відходить під один із вищевказаних типів number | string
+
+// // printId({ myID: 22342 }); //Помилка! Argument of type '{ myID: number; }' is not assignable to parameter of type 'string | number'.
+// ====================================================================================
+
+/**
+ * Якщо нам, наприклад, потрібно описати тип об"єкту, який буде використовуватись в декількох місцях, то нам не зручно буде писати це в кожній функції, в якій він нам буде потрібний. Для такого випадку є Type Aliases або ПСЕВДОНІМИ ТИПУ. Ми просто описуємо все, що нам потрібно тіпа як в в окремій змінній
+ */
+
+// type Point = {
+//   x: number;
+//   y: number;
+// };
+
+// // Exactly the same as the earlier example
+// function printCoord(pt: Point) {
+//   console.log("The coordinate's x value is " + pt.x);
+//   console.log("The coordinate's y value is " + pt.y);
+// }
+
+// printCoord({ x: 100, y: 100 });
+
+/**
+ * Псевдонім типу можна призначати не лише для об"єкта, а і для типу union, НАПРИКЛАД, type ID = number | string;
+ */
+
 export {};
