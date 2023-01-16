@@ -125,7 +125,139 @@
 // printCoord({ x: 100, y: 100 });
 
 /**
+ * Type Aliases
+ * починається з ключового типу type
  * Псевдонім типу можна призначати не лише для об"єкта, а і для типу union, НАПРИКЛАД, type ID = number | string;
  */
+// type Point = {
+//     x: number;
+//     y: number;
+//   };
+// ====================================================================================
+/**
+ * Interfaces
+ * те саме, що і Aliases, але оголошення типу починається з ключового слова interface
+ * Наприклад
+ */
+
+// interface Point {
+//     x: number;
+//     y: number;
+//   }
+
+/**
+ * майже всі функції інтерфейсу доступні в типі
+ * КЛЮЧОВОЮ ВІДМІННІСТЮ МІЖ type та interface є те, що type не можна повторно відкрити для додавання нових властивосте, а в interface є така можливість
+ */
+
+/**
+ * Type Assertions - твердження типу
+    
+    const a = 2 as number;
+ */
+
+/**
+ * Literal Inference
+ * 
+ * в http запитах методи будуть вказуватись як строка, але щоб це обійти потрібно писати напр method: "GET" as "GET"
+ * // Change 1:
+const req = { url: "https://example.com", method: "GET" as "GET" };
+// Change 2
+handleRequest(req.url, req.method as "GET");
+ */
+
+// You can use as const to convert the entire object to be type literals:
+
+// const req = { url: "https://example.com", method: "GET" } as const;
+// handleRequest(req.url, req.method);
+//
+
+// function liveDangerously(x?: number | null) {
+//   // No error
+//   console.log(x!.toFixed());
+// }
+
+// liveDangerously(2.45646);
+
+/**
+ *instanceof перевіряє чи є значення екземпляром іншого значення
+ */
+
+/**
+ * Discriminated unions
+ * important thing writtin "!"
+ *
+ */
+
+// interface Shape {
+//   kind: "circle" | "square";
+//   radius?: number;
+//   sideLength?: number;
+// }
+
+// function getArea(shape: Shape) {
+//   if (shape.kind === "circle") {
+//     return Math.PI * shape.radius! ** 2;
+//   }
+// }
+
+// console.log(getArea({ kind: "circle", radius: 6 }));
+/**
+ * найкраще розділяти інтерфейси для кожного виду і при виконанні функції перевіряти до якого типу відноситься аргумент
+ */
+// interface Circle {
+//   kind: "circle";
+//   radius: number;
+// }
+
+// interface Square {
+//   kind: "square";
+//   sideLength: number;
+// }
+
+// type Shape = Circle | Square;
+
+// function getArea(shape: Shape) {
+//   if (shape.kind === "circle") {
+//     return Math.PI * shape.radius ** 2;
+//   }
+// }
+// найбільш оптимальне рішення - виконання функції за допомогою switch
+// function getArea(shape: Shape) {
+//   switch (shape.kind) {
+//     case "circle":
+//       return Math.PI * shape.radius ** 2;
+
+//     //   (parameter) shape: Circle
+//     case "square":
+//       return shape.sideLength ** 2;
+
+//     //   (parameter) shape: Square
+
+//     default:
+//       const _exhaustiveCheck: never = shape; //вичерпна перевірка вказує на те, що не потрібно більше нічого обробляти, навіть якщо ми додамо щось в interface
+//       return _exhaustiveCheck;
+//   }
+// }
+
+// interface Triangle {
+//   kind: "triangle";
+//   sideLength: number;
+// }
+
+// type Shape = Circle | Square | Triangle;
+
+// function getArea(shape: Shape) {
+//   switch (shape.kind) {
+//     case "circle":
+//       return Math.PI * shape.radius ** 2;
+//     case "square":
+//       return shape.sideLength ** 2;
+//     default:
+//       const _exhaustiveCheck: never = shape;
+//       //   Type 'Triangle' is not assignable to type 'never'.
+//       return _exhaustiveCheck;
+//   }
+// }
 
 export {};
